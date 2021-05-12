@@ -16,7 +16,7 @@ function Sidebar() {
     const sidebarHidden = (appContext.sidebarOpened ? {} : {
         "display": "none"
     });
-
+    console.log(noteList.notes.reverse());
     return (
         <div className="sidebar" style={sidebarHidden}>
             <div className="sidebar-title">
