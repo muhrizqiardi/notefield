@@ -1,0 +1,26 @@
+.activity-bar {
+  z-index: 3;
+  height: 100vh;
+  width: 40px;
+  background-color: #1a1c20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-shadow: 0px 3px 5px rgba(black, 0.4);
+
+  .activity-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background-color: lighten(#1a1c20, 20%);
+    }
+    i.bx {
+      color: white;
+      font-size: 1.5rem;
+    }
+  }
+}

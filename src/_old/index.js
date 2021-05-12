@@ -1,15 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './style/index.css';
+import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// React Context for the app to store store data from data.json, currently opened note, dark theme, etc. 
-export const AppContext = React.createContext();
-
 ReactDOM.render(
   <React.StrictMode>
-      <App />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
