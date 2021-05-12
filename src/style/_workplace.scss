@@ -1,3 +1,19 @@
+.workplace-empty {
+    -webkit-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 1;
+  height: 100vh;
+  min-width: 70vw;
+  background-color: white;
+  color: lighten(black, 55%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .workplace {
   z-index: 1;
   height: 100vh;

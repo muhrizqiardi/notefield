@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { AppContext } from "..";
 
+import eventBus from "../eventBus";
+
 function Note(props) {
     const [appContext, setAppContext] = useContext(AppContext);
 
@@ -8,6 +10,7 @@ function Note(props) {
         let appContextCopy = { ...appContext };
         appContextCopy.currentNote = props.id;
         setAppContext(appContextCopy);
+        eventBus.dispatch("openNote", {noteId: props.id})
     };
     return (
         <div
