@@ -11,10 +11,10 @@ function NewNote(props) {
         let appContextCopy = { ...appContext };
 
         // Add/push a new note to the array
-        appContextCopy.storedData.notes.push(
+        appContextCopy.storedData.push(
             {
-                "id": appContext.storedData.notes.length,
-                "title": `New note ${appContext.storedData.notes.length}`,
+                "id": appContext.storedData.length,
+                "title": `New note ${appContext.storedData.length}`,
                 "tags": [
                     "placeholder"
                 ],
@@ -26,16 +26,15 @@ function NewNote(props) {
         
         // Set current note as the newest note 
         // (subtracted by one because length of an array is always bigger) 
-        appContextCopy.currentNote = appContext.storedData.notes.length - 1;
+        appContextCopy.currentNote = appContext.storedData.length - 1;
         setAppContext(appContextCopy);
 
         // Open newly created note to workplace
-        eventBus.dispatch("openNote", { noteId: appContextCopy.currentNote })
-        document.querySelector(`#note-${appContext.currentNote}`).scrollIntoView();
+        eventBus.dispatch("openNote", { noteId: appContextCopy.currentNote });
     };
     return (
         <div className="new-note" onClick={newNote}>
-            + New Note
+            <i class='bx bx-plus'></i>
         </div>
     );
 }

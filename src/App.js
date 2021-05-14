@@ -9,36 +9,46 @@ import ActivityBar from './components/ActivityBar';
 import Sidebar from './components/Sidebar';
 import Workplace from './components/Workplace';
 
+// Import axios
+import axios from 'axios';
+
 // Import data.json then store it inside AppContext
-import data from './data.json';
+// import data from './data.json';
 
 // Import style.scss (already converted to CSS using node-sass)
 import './style/style.scss';
+import { getFromAPI } from './getFromAPI';
 
 // App component
 function App() {
   const [appContext, setAppContext] = useState(
     {
-      storedData: { ...data },
+      storedData: [],
       currentNote: null,
       currentNoteSaved: true,
       filterMode: false,
       currentTag: null,
       sidebarOpened: true,
+      isMobile: (document.body.clientWidth < 500),
       darkTheme: false,
     }
   );
 
-  const editContent = (content, index) => {
-    let appContextCopy = { ...appContext };
-    appContextCopy.storedData.notes[index].content = content;
-    setAppContext(appContextCopy);
-  }
+  useEffect(() => {
+    axios.get("http://localhost:3001/api/all")
+      .then((response) => {
+        setAppContext(() => {
+          let appContextCopy = { ...appContext };
+          appContextCopy.storedData = response.data;
+          return appContextCopy;
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  }, []);
 
   useEffect(() => {
-    // Detects if the data changes
-    // TODO: Add using onChange event
-
     // Add a border to opened note from note list
     if (appContext.currentNote !== null) {
       document.querySelector(`.note#note-${appContext.currentNote}`).classList.add("opened");
@@ -56,7 +66,6 @@ function App() {
         <Workplace currentNote={appContext.currentNote} />
       </AppContext.Provider>
     </div>
-
   );
 }
 

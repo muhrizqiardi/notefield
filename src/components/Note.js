@@ -12,14 +12,15 @@ function Note(props) {
         setAppContext(appContextCopy);
         eventBus.dispatch("openNote", {noteId: props.id})
     };
+
     return (
         <div
             id={`note-${props.id}`}
-            className={`note ${props.selected ? "selected" : ""}`}
+            className='note'
             onClick={openNote}>
-            <h4 className="title">{props.title}</h4>
+            <h4 className="title">{(props.title ? props.title : "(Empty Title)")}</h4>
             <p className="content">
-                {props.content}
+                {(props.content ? `${props.content.slice(0,200)}${props.content.length <=300 ? "" : '...'}` : "(Empty note)")}
             </p>
         </div>
 

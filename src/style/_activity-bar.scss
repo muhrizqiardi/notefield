@@ -1,22 +1,29 @@
 .activity-bar {
   z-index: 6;
+
+  background-color: $secondary;
+
   height: 100vh;
   width: 40px;
-  background-color: $primary;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  box-shadow: 0px 3px 5px rgba(black, 0.8);
 
-  .activity-button {
-    width: 40px;
+  border-right: 1px solid lighten($secondary,20%);
+  box-shadow: 0px 3px 5px rgba(black, 0.8);
+  button.activity-button {
+    // Reset end
+
     height: 40px;
+    width: 40px;
+
     display: flex;
     align-items: center;
     justify-content: center;
     &:hover {
-      background-color: lighten(#1a1c20, 20%);
+      background-color: lighten($secondary, 20%);
     }
     i.bx {
       color: white;
