@@ -85,6 +85,10 @@
     }
     #editor-title {
       margin: 0;
+      font-size: 32px;
+      font-weight: bold;
+      font-family: 'Inter', sans-serif;
+      border: none;
       width: 100%;
     }
     #editor-info {
@@ -92,7 +96,8 @@
       margin-top: 5px;
     }
     #editor-content {
-      font-family: inherit;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
       resize: none;
       border: none;
       width: 100%;

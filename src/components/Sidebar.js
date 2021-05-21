@@ -25,7 +25,7 @@ function Sidebar() {
             <div className="sidebar-content">
                 <div className="note-list">
                     <NewNote />
-                    {noteList.notes.reverse().map((note) =>
+                    {noteList.notes.map((note) =>
                         <Note
                             id={note.id}
                             title={note.title}
