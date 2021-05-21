@@ -49,7 +49,7 @@ export const AppDataProvider = (props) => {
       redirect: 'follow'
     };
 
-    var res = fetch("http://localhost:3001/api/notes", requestOptions)
+    var res = fetch(`${API_URL}/notes`, requestOptions)
       .then(response => response.text())
       .then(data => data)
       .catch(error => console.log('error', error));    
@@ -74,7 +74,7 @@ export const AppDataProvider = (props) => {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:3001/api/notes", requestOptions)
+    fetch(`${API_URL}/notes`, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
@@ -98,7 +98,7 @@ export const AppDataProvider = (props) => {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:3001/api/notes", requestOptions)
+    fetch(`${API_URL}/notes`, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
