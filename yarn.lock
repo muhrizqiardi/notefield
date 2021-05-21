@@ -7516,6 +7516,11 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
+multi-clamp@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/multi-clamp/-/multi-clamp-2.0.2.tgz#fa77efb0100aa387855f90dd245ec26316fdede8"
+  integrity sha512-zhI0kP3VqZ2rACPWGxWV/G5s6z7qYWyh7Ow6QdPVzZ8N3fuNT4HZ25e9KIqUCROB++ppcn3/EUy7IYQ9UC1N+w==
+
 multicast-dns-service-types@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/multicast-dns-service-types/-/multicast-dns-service-types-1.1.0.tgz#899f11d9686e5e05cb91b35d5f0e63b773cfc901"
@@ -9330,6 +9335,14 @@ react-is@^17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
+
+react-multi-clamp@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/react-multi-clamp/-/react-multi-clamp-2.0.4.tgz#71a384806c69eb9c34cb0568eb10fbe1eef6184e"
+  integrity sha512-uo41WWwgmDn4vU3l/uexiuSyTQgDs68yJzTMy/lL/MUN02vh74sc/fxMjy1/GWPFtN6/05hJG6CmipP0J6RwKQ==
+  dependencies:
+    multi-clamp "^2.0.2"
+    prop-types "^15.7.2"
 
 react-quill@^1.3.5:
   version "1.3.5"

@@ -12,63 +12,62 @@ import eventBus from "../eventBus";
 // Import quill-js for the editor
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.bubble.css';
+import AppDataContext from "../context/AppContext";
 
 function Workplace(props) {
-    const [appContext, setAppContext] = useContext(AppContext);
+    const { appData, setAppData, storedNotes, setStoredNotes, addNote, editNote, deleteNote, loading } = useContext(AppDataContext);
     const [contentState, setContentState] = useState("");
     const [titleState, setTitleState] = useState("");
 
     // Handler to save a note (whether automatically or manually through save button)
-    const saveNote = () => {
-        let appContextCopy = { ...appContext };
+    const handleSaveNote = () => {
+        let storedNotesCopy = [...storedNotes];
         // Save content
-        appContextCopy.storedData.notes[appContextCopy.currentNote].title = titleState;
+        storedNotesCopy.find(note => note["_id"] === appData.currentNote).title = titleState;
 
         // Save title
-        appContextCopy.storedData.notes[appContextCopy.currentNote].content = contentState;
+        storedNotesCopy.find(note => note["_id"] === appData.currentNote).content = contentState;
 
-        setAppContext(appContextCopy);
+        setStoredNotes(storedNotesCopy);
+        editNote(storedNotesCopy.find(note => note["_id"] === appData.currentNote));
     };
 
-    // Hooks for draft-js
+    const handleDeleteNote = () => {
+        // Delete on front-end
+        let storedNotesCopy = [...storedNotes];
+        deleteNote(storedNotesCopy.find(note => note["_id"] === appData.currentNote)); // Delete on back-end (make a DELETE request)
+        storedNotesCopy = storedNotesCopy.filter(note => note["_id"] !== appData.currentNote);
+        setAppData(appData => {
+            appData.currentNote = null;
+            return appData;
+        }); // Set the currentNote to null
+        setStoredNotes(storedNotesCopy);
+    }
 
+    // Hooks for react-quill
     useEffect(() => {
-        eventBus.on("openNote", (data) => {
-            setTitleState(appContext.storedData.notes[data.noteId].title)
-            setContentState(appContext.storedData.notes[data.noteId].content)
-        });
-    });
+        // eventBus.on("openNote", (data) => {
+        // });
+        appData.currentNote && setTitleState(storedNotes.find(note => note["_id"] === appData.currentNote).title)
+        appData.currentNote && setContentState(storedNotes.find(note => note["_id"] === appData.currentNote).content)
+        console.log(storedNotes.find(note => note["_id"] === appData.currentNote));
+    }, [appData.currentNote]);
 
-    if (appContext.currentNote !== null) {
+    if (appData.currentNote !== null) {
         return (
             <div className="workplace">
                 <div className="editor-toolbar">
-                    <div className="toolbar-button active">
-                        <i className="bx bx-bold" />
-                    </div>
-                    <div className="toolbar-button">
-                        <i className="bx bx-italic" />
-                    </div>
-                    <div className="toolbar-button">
-                        <i className="bx bx-strikethrough" />
-                    </div>
-                    <div className="toolbar-button">
-                        <i className="bx bx-code-alt" />
-                    </div>
-                    <div className="toolbar-button">
-                        <i className="bx bxl-markdown" />
-                    </div>
-                    <div className="toolbar-divider">
-
-                    </div>
-                    <div className="toolbar-button" onClick={saveNote}>
+                    <div className="toolbar-button" onClick={handleSaveNote}>
                         <i className="bx bx-save" />
+                    </div>
+                    <div className="toolbar-button" onClick={handleDeleteNote}>
+                        <i class='bx bxs-trash'></i>
                     </div>
                 </div>
                 <div className="editor">
                     <div className="tags">
                         <Tag>+</Tag>
-                        {appContext.storedData.notes[props.currentNote].tags.map((tag) => {
+                        {storedNotes.find(note => note["_id"] === appData.currentNote).tags && storedNotes.find(note => note["_id"] === appData.currentNote).tags.map((tag) => {
                             return (
                                 <Tag>
                                     {tag}
@@ -77,12 +76,12 @@ function Workplace(props) {
                         })}
                     </div>
                     <input type="text" id="editor-title" onChange={(e) => setTitleState(e.target.value)} value={titleState} />
-                    <p id="editor-info">Edited by {appContext.storedData.notes[props.currentNote].author} at {new Date(appContext.storedData.notes[props.currentNote].date).toLocaleString()}</p>
+                    <p id="editor-info">Edited by {storedNotes.find(note => note["_id"] === appData.currentNote).author} at {new Date(storedNotes.find(note => note["_id"] === appData.currentNote).date).toLocaleString()}</p>
                     <ReactQuill
                         theme="bubble"
+                        id="editor-content"
                         value={contentState}
                         onChange={setContentState}
-                        style={{ minHeight: '300px', width: '100%', fontFamily: 'Inter' }}
                     />
                 </div>
             </div>

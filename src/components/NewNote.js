@@ -4,34 +4,43 @@ import { AppContext } from '../index';
 
 // Importing eventBus
 import eventBus from "../eventBus"
+import AppDataContext from "../context/AppContext";
 
 function NewNote(props) {
-    const [appContext, setAppContext] = useContext(AppContext);
-    const newNote = () => {
-        let appContextCopy = { ...appContext };
+    // const [appContext, setAppContext] = useContext(AppContext);
+    const { appData, setAppData, fetchNotes, storedNotes, setStoredNotes, addNote, loading } = useContext(AppDataContext);
+    const newNote = async () => {
+        let appDataCopy = {...appData};
 
-        // Add/push a new note to the array
-        appContextCopy.storedData.notes.push(
-            {
-                "id": appContext.storedData.notes.length,
-                "title": `New note ${appContext.storedData.notes.length}`,
-                "tags": [
-                    "placeholder"
-                ],
-                "content": "Placeholder",
-                "date": new Date().getTime(),
-                "author": "Muhammad Rizqi Ardiansyah"
-            }
-        );
-        
-        // Set current note as the newest note 
-        // (subtracted by one because length of an array is always bigger) 
-        appContextCopy.currentNote = appContext.storedData.notes.length - 1;
-        setAppContext(appContextCopy);
+        // Add a note on the back-end
+        let addedNote = await addNote({
+            "title": `New note ${storedNotes.length}`,
+            "tags": [
+                "placeholder"
+            ],
+            "content": "Placeholder",
+            "date": new Date().getTime(),
+            "author": "Muhammad Rizqi Ardiansyah"
+        });
+        addedNote = JSON.parse(addedNote);
 
-        // Open newly created note to workplace
-        eventBus.dispatch("openNote", { noteId: appContextCopy.currentNote })
-        document.querySelector(`#note-${appContext.currentNote}`).scrollIntoView();
+        // Fetch note from back-end
+        fetchNotes();
+
+        // Open the new note on the front-end
+        setAppData(appData => {
+            appData.currentNote = addedNote["_id"];
+            return appData;
+        });
+
+        // // Set current note as the newest note 
+        // // (subtracted by one because length of an array is always bigger) 
+        // appDataCopy.currentNote = storedNotes.length - 1;
+        // setStoredNotes(storedNotesCopy);
+        // setAppData(appDataCopy);
+        // // addNote(storedNotesCopy.find(note => note["_id"] === appData.currentNote));
+        // // fetchStoredNotes();
+        // console.log(storedNotes);
     };
     return (
         <div className="new-note" onClick={newNote}>

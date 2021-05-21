@@ -2,21 +2,22 @@
 import { useContext, useEffect, useState } from 'react';
 
 // Importing AppContext from index
-import { AppContext } from "..";
+import AppDataContext from '../context/AppContext';
 
 // Importing components
 import NewNote from "./NewNote";
 import Note from './Note';
 
 function Sidebar() {
-    const [appContext, setAppContext] = useContext(AppContext);
-    const [noteList, setNoteList] = useState({ ...appContext.storedData });
+    // const [appContext, setAppContext] = useContext(AppContext);
+    // const [noteList, setNoteList] = useState({ ...appContext.storedData });
+
+    const {appData, storedNotes, loading} = useContext(AppDataContext);
 
     // Handle hide/show sidebar 
-    const sidebarHidden = (appContext.sidebarOpened ? {} : {
+    const sidebarHidden = (appData.sidebarOpened ? {} : {
         "display": "none"
     });
-    console.log(noteList.notes.reverse());
     return (
         <div className="sidebar" style={sidebarHidden}>
             <div className="sidebar-title">
@@ -25,9 +26,9 @@ function Sidebar() {
             <div className="sidebar-content">
                 <div className="note-list">
                     <NewNote />
-                    {noteList.notes.map((note) =>
+                    {storedNotes && storedNotes.map((note) =>
                         <Note
-                            id={note.id}
+                            id={note['_id']}
                             title={note.title}
                             content={`${note.content.substring(0, 200)}${note.content.length > 200 ? "..." : ""}`}
                             selected={false} />

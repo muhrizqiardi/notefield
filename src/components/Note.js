@@ -1,26 +1,29 @@
 import { useContext } from "react";
-import { AppContext } from "..";
+import AppDataContext from '../context/AppContext';
+import MultiClamp from 'react-multi-clamp';
 
 import eventBus from "../eventBus";
 
 function Note(props) {
-    const [appContext, setAppContext] = useContext(AppContext);
+    const {appData, setAppData, storedNotes, loading} = useContext(AppDataContext);
 
     const openNote = () => {
-        let appContextCopy = { ...appContext };
-        appContextCopy.currentNote = props.id;
-        setAppContext(appContextCopy);
-        eventBus.dispatch("openNote", {noteId: props.id})
+        let appDataCopy = { ...appData };
+        appDataCopy.currentNote = props.id;
+        setAppData(appDataCopy);
+        // eventBus.dispatch("openNote", {noteId: props.id})
     };
+
     return (
         <div
             id={`note-${props.id}`}
             className={`note ${props.selected ? "selected" : ""}`}
             onClick={openNote}>
             <h4 className="title">{props.title}</h4>
-            <p className="content">
-                {props.content}
-            </p>
+            <MultiClamp ellipsis="..." clamp={5}>
+                <div className="content" dangerouslySetInnerHTML={{ __html: props.content }}>
+                </div>
+            </MultiClamp>
         </div>
 
     );

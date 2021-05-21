@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import './style/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AppDataContext, { AppDataProvider } from './context/AppContext';
 
-// React Context for the app to store store data from data.json, currently opened note, dark theme, etc. 
-export const AppContext = React.createContext();
 
 ReactDOM.render(
   <React.StrictMode>
+    <AppDataProvider>
       <App />
+    </AppDataProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
