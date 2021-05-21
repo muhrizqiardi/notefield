@@ -27,3 +27,6 @@ yarn-error.log*
 
 # folder
 /src/.old
+
+# environment files
+.env
