@@ -32,7 +32,7 @@ export const AppDataProvider = (props) => {
   }, [storedNotes]);
   
   return (
-    <AppDataContext.Provider value={{ appData, storedNotes, loading }}>
+    <AppDataContext.Provider value={{ appData, setAppData, setStoredNotes, storedNotes, loading }}>
       {props.children}
     </AppDataContext.Provider>
   ); 
