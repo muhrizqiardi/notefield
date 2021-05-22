@@ -3,7 +3,16 @@ import { API_URL } from "../utils/urls"
 
 const AppDataContext = createContext();
 
+
 export const AppDataProvider = (props) => {
+  const handleResize = () => {
+    if (window.innerWidth < 720) {
+      setIsMobile(true)
+    } else {
+      setIsMobile(false)
+    }
+  }
+
   const [appData, setAppData] = useState(
     {
       currentNote: null,
@@ -11,6 +20,7 @@ export const AppDataProvider = (props) => {
       sidebarOpened: true,
     }
   );
+  const [isMobile, setIsMobile] = useState(false)
   const [storedNotes, setStoredNotes] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -121,6 +131,9 @@ export const AppDataProvider = (props) => {
         addNote,
         editNote,
         deleteNote,
+        handleResize,
+        isMobile,
+        setIsMobile,
         loading
       }}
     >

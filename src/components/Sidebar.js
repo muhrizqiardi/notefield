@@ -14,7 +14,7 @@ function Sidebar() {
     const sidebarClosed = (appData.sidebarOpened ? {
         "animation": "sidebar-anim 0.2s cubic-bezier(.33,.37,0,.97)"
     } : {
-        "transform": "translateX(-120%)",
+        "transform": "translateX(-150%)",
         "position": "absolute",
         "width": "30vw",
         "left": "40px",

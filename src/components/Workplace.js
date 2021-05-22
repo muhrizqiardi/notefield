@@ -23,7 +23,7 @@ function Workplace(props) {
     const workplaceWidth = (appData.sidebarOpened ? {
         'width': `100%`
     } : {
-        'width': `${document.body.clientWidth - 40}px`
+            'width': `100%`
     });
 
     // Handler to save a note (whether automatically or manually through save button)

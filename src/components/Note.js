@@ -5,13 +5,17 @@ import MultiClamp from 'react-multi-clamp';
 import eventBus from "../eventBus";
 
 function Note(props) {
-    const {appData, setAppData, storedNotes, loading} = useContext(AppDataContext);
+    const {appData, setAppData, storedNotes, loading, isMobile} = useContext(AppDataContext);
 
     const openNote = () => {
         let appDataCopy = { ...appData };
         appDataCopy.currentNote = props.id;
+        if (isMobile) {
+            console.log(isMobile)
+            appDataCopy.sidebarOpened = false;
+            console.log(appDataCopy.sidebarOpened)
+        } 
         setAppData(appDataCopy);
-        // eventBus.dispatch("openNote", {noteId: props.id})
     };
 
     return (
