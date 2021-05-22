@@ -19,6 +19,13 @@ function Workplace(props) {
     const [contentState, setContentState] = useState("");
     const [titleState, setTitleState] = useState("");
 
+    // Styles to set the width of Workplace to proper width
+    const workplaceWidth = (appContext.sidebarOpened ? {
+        'width': `${(document.body.clientWidth * 0.7) - 40}px`
+    } : {
+        'width': `${document.body.clientWidth - 40}px`
+    });
+
     // Handler to save a note (whether automatically or manually through save button)
     const handleSaveNote = () => {
         let storedNotesCopy = [...storedNotes];
