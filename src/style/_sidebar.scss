@@ -4,8 +4,8 @@
   -moz-user-select: -moz-none;
   -ms-user-select: none;
   user-select: none;
-  height: 100vh;
-  min-width: 30vw;
+  // height: 100vh;
+  width: 30vw;
   background-color: $secondary;
   display: flex;
   flex-direction: column;

@@ -15,15 +15,17 @@ import './style/style.scss';
 // App component
 function App() {
   const { appData, setAppData, storedNotes, loading, isMobile,  handleResize } = useContext(AppDataContext);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
   useEffect(() => {
-    window.addEventListener("resize", handleResize)
+    window.addEventListener("resize", () => { handleResize(); setWindowHeight(window.innerHeight)});
   });
+
 
   return (
     <div className="App" >
       <ActivityBar />
-      <div className="content-container">
+      <div className="content-container" style={{height: `${windowHeight-40}px`}}>
         <Sidebar />
         <Workplace currentNote={appData.currentNote} />
       </div>

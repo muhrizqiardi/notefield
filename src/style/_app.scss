@@ -1,8 +1,10 @@
 .App {
-    // display: flex;
-    // flex-direction: row;
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    height: 100vh;
     .content-container {
         width: 100%;
+        align-self: stretch;
         display: flex;
         flex-direction: row;
     }
@@ -18,6 +20,12 @@
         }
         .workplace {
             z-index: 1;
+            .editor {
+                padding: 1em 1em;
+            }
+            .editor-toolbar {
+                padding: 0 1em;
+            }
         }
         .sidebar {
             z-index: 3;

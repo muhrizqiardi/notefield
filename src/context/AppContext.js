@@ -20,7 +20,7 @@ export const AppDataProvider = (props) => {
       sidebarOpened: true,
     }
   );
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(() => (window.innerWidth < 720))
   const [storedNotes, setStoredNotes] = useState([]);
   const [loading, setLoading] = useState(false);
 

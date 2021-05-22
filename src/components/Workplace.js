@@ -15,15 +15,14 @@ import 'react-quill/dist/quill.bubble.css';
 import AppDataContext from "../context/AppContext";
 
 function Workplace(props) {
-    const { appData, setAppData, storedNotes, setStoredNotes, addNote, editNote, deleteNote, loading } = useContext(AppDataContext);
+    const { appData, setAppData, storedNotes, setStoredNotes, addNote, editNote, deleteNote, isMobile, loading } = useContext(AppDataContext);
     const [contentState, setContentState] = useState("");
-    const [titleState, setTitleState] = useState("");
+    const [titleState, setTitleState] = useState(""); 
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-    // Styles to set the width of Workplace to proper width
-    const workplaceWidth = (appData.sidebarOpened ? {
-        'width': `100%`
-    } : {
-            'width': `100%`
+    useEffect(() => {
+        window.addEventListener("resize", () => { setWindowHeight(window.innerHeight); setWindowWidth(window.innerWidth) });
     });
 
     // Handler to save a note (whether automatically or manually through save button)
@@ -60,7 +59,7 @@ function Workplace(props) {
 
     if (appData.currentNote !== null) {
         return (
-            <div className="workplace" style={workplaceWidth}>
+            <div className="workplace" style={{ width: (isMobile ? windowWidth : (appData.sidebarOpened ? windowWidth - (windowWidth * 0.3) : windowWidth)), height: windowHeight - 40}}>
                 <div className="editor-toolbar">
                     <div className="toolbar-button" onClick={handleSaveNote}>
                         <i className="bx bx-save" />
@@ -93,7 +92,7 @@ function Workplace(props) {
         );
     } else {
         return (
-            <div className="workplace-empty" style={workplaceWidth}>
+            <div className="workplace-empty" style={{ width: (isMobile ? windowWidth : (appData.sidebarOpened ? windowWidth - (windowWidth * 0.3) : windowWidth)), height: windowHeight-40}}>
                 Select a note, or create a new note to start editing.
             </div>);
     }

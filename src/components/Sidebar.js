@@ -10,13 +10,20 @@ import Note from './Note';
 
 function Sidebar() {
     const { appData, storedNotes, loading } = useContext(AppDataContext);
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+
+    useEffect(() => {
+        window.addEventListener("resize", () => { setWindowHeight(window.innerHeight) });
+    });
 
     const sidebarClosed = (appData.sidebarOpened ? {
+        "height": windowHeight-40,
         "animation": "sidebar-anim 0.2s cubic-bezier(.33,.37,0,.97)"
     } : {
         "transform": "translateX(-150%)",
         "position": "absolute",
         "width": "30vw",
+        "height": windowHeight-40,
         "left": "40px",
         "transition": "all 0.5s cubic-bezier(.33,.37,0,.97)"
     });

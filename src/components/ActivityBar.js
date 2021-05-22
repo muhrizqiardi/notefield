@@ -17,7 +17,7 @@ function ActivityBar(props) {
                     <i className="bx bx-menu" />
                 </div>
             }
-            { isMobile &&
+            { (isMobile && !appData.sidebarOpened) &&
                 <div className="activity-button mobile-back" onClick={sidebarToggle}>
                     <i class='bx bxs-chevron-left'></i>
                 </div>
@@ -25,6 +25,8 @@ function ActivityBar(props) {
             <div className="activity-button">
                 <img src="/notefield-icon.svg" alt="notefield icon" width="60%" height="60%" />
             </div>
+
+                <span className="brand">Notefield</span>
         </div>
     );
 }
