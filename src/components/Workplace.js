@@ -13,11 +13,12 @@ import eventBus from "../eventBus";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.bubble.css';
 import AppDataContext from "../context/AppContext";
+import ContentEditable from "react-contenteditable";
 
 function Workplace(props) {
     const { appData, setAppData, storedNotes, setStoredNotes, addNote, editNote, deleteNote, isMobile, loading } = useContext(AppDataContext);
     const [contentState, setContentState] = useState("");
-    const [titleState, setTitleState] = useState(""); 
+    const [titleState, setTitleState] = useState("");
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -59,7 +60,7 @@ function Workplace(props) {
 
     if (appData.currentNote !== null) {
         return (
-            <div className="workplace" style={{ width: (isMobile ? windowWidth : (appData.sidebarOpened ? windowWidth - (windowWidth * 0.3) : windowWidth)), height: windowHeight - 40}}>
+            <div className="workplace" style={{ width: (isMobile ? windowWidth : (appData.sidebarOpened ? windowWidth - (windowWidth * 0.3) : windowWidth)), height: windowHeight - 40 }}>
                 <div className="editor-toolbar">
                     <div className="toolbar-button" onClick={handleSaveNote}>
                         <i className="bx bx-save" />
@@ -79,7 +80,12 @@ function Workplace(props) {
                             )
                         })}
                     </div>
-                    <input type="text" id="editor-title" onChange={(e) => setTitleState(e.target.value)} value={titleState} />
+                    {/* <input type="text" id="editor-title" onChange={(e) => setTitleState(e.target.value)} value={titleState} /> */}
+                    <ContentEditable
+                        html={titleState}
+                        tagName="h1"
+                        onChange={(e) => setTitleState(e.target.value)}
+                    />
                     <p id="editor-info">Edited by {storedNotes.find(note => note["_id"] === appData.currentNote).author} at {new Date(storedNotes.find(note => note["_id"] === appData.currentNote).date).toLocaleString()}</p>
                     <ReactQuill
                         theme="bubble"
@@ -92,7 +98,7 @@ function Workplace(props) {
         );
     } else {
         return (
-            <div className="workplace-empty" style={{ width: (isMobile ? windowWidth : (appData.sidebarOpened ? windowWidth - (windowWidth * 0.3) : windowWidth)), height: windowHeight-40}}>
+            <div className="workplace-empty" style={{ width: (isMobile ? windowWidth : (appData.sidebarOpened ? windowWidth - (windowWidth * 0.3) : windowWidth)), height: windowHeight - 40 }}>
                 Select a note, or create a new note to start editing.
             </div>);
     }
