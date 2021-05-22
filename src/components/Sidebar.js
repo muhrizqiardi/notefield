@@ -11,12 +11,14 @@ import Note from './Note';
 function Sidebar() {
     const { appData, storedNotes, loading } = useContext(AppDataContext);
 
-    const sidebarClosed = (appData.sidebarOpened ? {} : {
+    const sidebarClosed = (appData.sidebarOpened ? {
+        "animation": "sidebar-anim 0.2s cubic-bezier(.33,.37,0,.97)"
+    } : {
         "transform": "translateX(-120%)",
         "position": "absolute",
         "width": "30vw",
         "left": "40px",
-        "transition": "transform 0.5s"
+        "transition": "all 0.5s cubic-bezier(.33,.37,0,.97)"
     });
 
     // Handle hide/show sidebar 

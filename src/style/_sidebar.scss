@@ -145,3 +145,12 @@
     }
   }
 }
+
+@keyframes sidebar-anim {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
