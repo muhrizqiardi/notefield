@@ -31,13 +31,14 @@ function Sidebar() {
             <div className="sidebar-content">
                 <div className="note-list">
                     <NewNote />
-                    {storedNotes && storedNotes.map((note) =>
+                    {!loading ? storedNotes.map((note) =>
                         <Note
                             id={note['_id']}
                             title={note.title}
                             content={`${note.content.substring(0, 200)}${note.content.length > 200 ? "..." : ""}`}
-                        />
-                    )}
+                        />)
+                        :
+                        <div class="lds-facebook"><div></div><div></div><div></div></div>}
                 </div>
             </div>
         </div>
