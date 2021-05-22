@@ -18,8 +18,8 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://notefield.vercel.app/",
   "display": "standalone",
-  "theme_color": "#8d7d68",
-  "background_color": "#ffffff"
+  "theme_color": "#0c0908",
+  "background_color": "#8d7d68"
 }
