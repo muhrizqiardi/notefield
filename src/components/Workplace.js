@@ -20,7 +20,7 @@ function Workplace(props) {
     const [titleState, setTitleState] = useState("");
 
     // Styles to set the width of Workplace to proper width
-    const workplaceWidth = (appContext.sidebarOpened ? {
+    const workplaceWidth = (appData.sidebarOpened ? {
         'width': `${(document.body.clientWidth * 0.7) - 40}px`
     } : {
         'width': `${document.body.clientWidth - 40}px`
