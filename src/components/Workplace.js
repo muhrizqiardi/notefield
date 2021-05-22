@@ -80,12 +80,12 @@ function Workplace(props) {
                             )
                         })}
                     </div>
-                    {/* <input type="text" id="editor-title" onChange={(e) => setTitleState(e.target.value)} value={titleState} /> */}
-                    <ContentEditable
+                    <input type="text" id="editor-title" onChange={(e) => setTitleState(e.target.value)} value={titleState} />
+                    {/* <ContentEditable
                         html={titleState}
                         tagName="h1"
                         onChange={(e) => setTitleState(e.target.value)}
-                    />
+                    /> */}
                     <p id="editor-info">Edited by {storedNotes.find(note => note["_id"] === appData.currentNote).author} at {new Date(storedNotes.find(note => note["_id"] === appData.currentNote).date).toLocaleString()}</p>
                     <ReactQuill
                         theme="bubble"
