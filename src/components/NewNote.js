@@ -8,7 +8,7 @@ import AppDataContext from "../context/AppContext";
 
 function NewNote(props) {
     // const [appContext, setAppContext] = useContext(AppContext);
-    const { appData, setAppData, fetchNotes, storedNotes, setStoredNotes, addNote, loading } = useContext(AppDataContext);
+    const { appData, setAppData, fetchNotes, storedNotes, setStoredNotes, addNote, isMobile, loading } = useContext(AppDataContext);
     const newNote = async () => {
         let appDataCopy = {...appData};
 
@@ -30,6 +30,9 @@ function NewNote(props) {
         // Open the new note on the front-end
         setAppData(appData => {
             appData.currentNote = addedNote["_id"];
+            if (isMobile) {
+                appData.sidebarOpened = false;
+            }
             return appData;
         });
 
