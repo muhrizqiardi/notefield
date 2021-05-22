@@ -9,17 +9,22 @@ import NewNote from "./NewNote";
 import Note from './Note';
 
 function Sidebar() {
-    // const [appContext, setAppContext] = useContext(AppContext);
-    // const [noteList, setNoteList] = useState({ ...appContext.storedData });
+    const { appData, storedNotes, loading } = useContext(AppDataContext);
 
-    const {appData, storedNotes, loading} = useContext(AppDataContext);
+    const sidebarClosed = (appData.sidebarOpened ? {} : {
+        "transform": "translateX(-120%)",
+        "position": "absolute",
+        "width": "30vw",
+        "left": "40px",
+        "transition": "transform 0.5s"
+    });
 
     // Handle hide/show sidebar 
     const sidebarHidden = (appData.sidebarOpened ? {} : {
         "display": "none"
     });
     return (
-        <div className="sidebar" style={sidebarHidden}>
+        <div className="sidebar" style={sidebarHidden, sidebarClosed}>
             <div className="sidebar-title">
                 All Notes
                 </div>
@@ -31,7 +36,7 @@ function Sidebar() {
                             id={note['_id']}
                             title={note.title}
                             content={`${note.content.substring(0, 200)}${note.content.length > 200 ? "..." : ""}`}
-                            selected={false} />
+                        />
                     )}
                 </div>
             </div>

@@ -21,7 +21,7 @@ function Workplace(props) {
 
     // Styles to set the width of Workplace to proper width
     const workplaceWidth = (appData.sidebarOpened ? {
-        'width': `${(document.body.clientWidth * 0.7) - 40}px`
+        'width': `100%`
     } : {
         'width': `${document.body.clientWidth - 40}px`
     });
@@ -53,8 +53,6 @@ function Workplace(props) {
 
     // Hooks for react-quill
     useEffect(() => {
-        // eventBus.on("openNote", (data) => {
-        // });
         appData.currentNote && setTitleState(storedNotes.find(note => note["_id"] === appData.currentNote).title)
         appData.currentNote && setContentState(storedNotes.find(note => note["_id"] === appData.currentNote).content)
         console.log(storedNotes.find(note => note["_id"] === appData.currentNote));
@@ -62,7 +60,7 @@ function Workplace(props) {
 
     if (appData.currentNote !== null) {
         return (
-            <div className="workplace">
+            <div className="workplace" style={workplaceWidth}>
                 <div className="editor-toolbar">
                     <div className="toolbar-button" onClick={handleSaveNote}>
                         <i className="bx bx-save" />
@@ -95,7 +93,7 @@ function Workplace(props) {
         );
     } else {
         return (
-            <div className="workplace-empty">
+            <div className="workplace-empty" style={workplaceWidth}>
                 Select a note, or create a new note to start editing.
             </div>);
     }

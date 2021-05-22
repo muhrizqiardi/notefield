@@ -17,7 +17,7 @@ function Note(props) {
     return (
         <div
             id={`note-${props.id}`}
-            className={`note ${props.selected ? "selected" : ""}`}
+            className={`note ${props.id === appData.currentNote ? "selected" : ""}`}
             onClick={openNote}>
             <h4 className="title">{props.title}</h4>
             <MultiClamp ellipsis="..." clamp={5}>
