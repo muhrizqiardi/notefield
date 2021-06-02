@@ -47,7 +47,7 @@ function NewNote(props) {
     };
     return (
         <div className="new-note" onClick={newNote}>
-            + New Note
+            + 
         </div>
     );
 }

@@ -7,23 +7,24 @@ import AppDataContext from '../context/AppContext';
 // Importing components
 import NewNote from "./NewNote";
 import Note from './Note';
+import SortButton from './SortButton';
 
 function Sidebar() {
     const { appData, storedNotes, loading } = useContext(AppDataContext);
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [searchKeywords, setSearchKeywords] = useState("");
 
     useEffect(() => {
         window.addEventListener("resize", () => { setWindowHeight(window.innerHeight) });
     });
-
     const sidebarClosed = (appData.sidebarOpened ? {
-        "height": windowHeight-40,
+        "height": windowHeight - 40,
         "animation": "sidebar-anim 0.2s cubic-bezier(.33,.37,0,.97)"
     } : {
         "transform": "translateX(-150%)",
         "position": "absolute",
         "width": "30vw",
-        "height": windowHeight-40,
+        "height": windowHeight - 40,
         "left": "40px",
         "transition": "all 0.5s cubic-bezier(.33,.37,0,.97)"
     });
@@ -39,15 +40,33 @@ function Sidebar() {
                 </div>
             <div className="sidebar-content">
                 <div className="note-list">
-                    <NewNote />
-                    {!loading ? storedNotes.map((note) =>
-                        <Note
-                            id={note['_id']}
-                            title={note.title}
-                            content={`${note.content.substring(0, 200)}${note.content.length > 200 ? "..." : ""}`}
-                        />)
-                        :
-                        <div class="lds-facebook"><div></div><div></div><div></div></div>}
+                    <div className="note-toolbar">
+                        <input type="text" name="search" onChange={e => setSearchKeywords(e.target.value)} placeholder="Search notes..." id="note-search" />
+                        <SortButton/>
+                        <NewNote />
+                    </div>
+                    {
+                        !loading ?
+                            (
+                                searchKeywords === "" ?
+                                    storedNotes.map((note) =>
+                                        <Note
+                                            id={note['_id']}
+                                            title={note.title}
+                                            content={`${note.content.substring(0, 200)}${note.content.length > 200 ? "..." : ""}`}
+                                        />)
+                                    :
+                                    [...storedNotes].filter(note => note.title.toLowerCase().includes(searchKeywords.toLowerCase()) || note.content.toLowerCase().includes(searchKeywords.toLowerCase())).map((note) =>
+                                        <Note
+                                            id={note['_id']}
+                                            title={note.title}
+                                            content={`${note.content.substring(0, 200)}${note.content.length > 200 ? "..." : ""}`}
+                                        />)
+
+                            )
+                            :
+                            <div class="lds-facebook"><div></div><div></div><div></div></div>
+                    }
                 </div>
             </div>
         </div>

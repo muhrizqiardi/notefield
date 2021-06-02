@@ -17,6 +17,8 @@ export const AppDataProvider = (props) => {
     {
       currentNote: null,
       currentTag: null,
+      currentSort: "DESC",
+      sortMenuOpened: false,
       sidebarOpened: true,
     }
   );
@@ -25,11 +27,11 @@ export const AppDataProvider = (props) => {
   const [loading, setLoading] = useState(false);
 
   // Fetch from notes API to store it to storedNotes
-  const fetchNotes = async () => {
+  const fetchNotes = async(sort) => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/notes`);
+      const res = await fetch(`${API_URL}/notes?sort=${sort}`);
       const data = await res.json();
       setStoredNotes(data);
       console.log(data)
@@ -117,7 +119,7 @@ export const AppDataProvider = (props) => {
   }
 
   useEffect(() => {
-    fetchNotes();
+    fetchNotes(appData.currentSort);
   }, []);
 
   return (

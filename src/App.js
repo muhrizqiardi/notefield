@@ -11,6 +11,7 @@ import Workplace from './components/Workplace';
 
 // Import style.scss (already converted to CSS using node-sass)
 import './style/style.scss';
+import FloatingSortMenu from './components/FloatingSortMenu';
 
 // App component
 function App() {
@@ -26,6 +27,7 @@ function App() {
     <div className="App" >
       <ActivityBar />
       <div className="content-container" style={{height: `${windowHeight-40}px`}}>
+        {appData.sortMenuOpened ? <FloatingSortMenu/> : <></>}
         <Sidebar />
         <Workplace currentNote={appData.currentNote} />
       </div>
