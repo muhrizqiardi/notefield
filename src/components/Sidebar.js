@@ -10,7 +10,7 @@ import Note from './Note';
 import SortButton from './SortButton';
 
 function Sidebar() {
-    const { appData, storedNotes, loading } = useContext(AppDataContext);
+    const { appData, setAppData, fetchNotes, storedNotes, loading } = useContext(AppDataContext);
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
     const [searchKeywords, setSearchKeywords] = useState("");
 
@@ -33,16 +33,35 @@ function Sidebar() {
     const sidebarHidden = (appData.sidebarOpened ? {} : {
         "display": "none"
     });
+
+    const handleCloseTag = () => {
+        setAppData(appData => {
+            const appDataCopy = { ...appData };
+            appDataCopy.currentTag = "";
+            fetchNotes({ sort: "ASC", tag: "" });
+            return appDataCopy;
+        })
+    }
     return (
         <div className="sidebar" style={sidebarHidden, sidebarClosed}>
             <div className="sidebar-title">
-                All Notes
-                </div>
+                {
+                    appData.currentTag ?
+                        <>
+                            Tag: {appData.currentTag}
+                            <div className="close-tag" onClick={handleCloseTag} style={{cursor: 'pointer'}}>
+                                <i className='bx bxs-x-circle' />
+                            </div>
+                        </>
+                        :
+                        `All Notes`
+                }
+            </div>
             <div className="sidebar-content">
                 <div className="note-list">
                     <div className="note-toolbar">
                         <input type="text" name="search" onChange={e => setSearchKeywords(e.target.value)} placeholder="Search notes..." id="note-search" />
-                        <SortButton/>
+                        <SortButton />
                         <NewNote />
                     </div>
                     {

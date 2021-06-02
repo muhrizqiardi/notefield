@@ -27,11 +27,11 @@ export const AppDataProvider = (props) => {
   const [loading, setLoading] = useState(false);
 
   // Fetch from notes API to store it to storedNotes
-  const fetchNotes = async(sort) => {
+  const fetchNotes = async({sort, tag}) => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/notes?sort=${sort}`);
+      const res = await fetch(`${API_URL}/notes?sort=${sort}?tag=${tag}`);
       const data = await res.json();
       setStoredNotes(data);
       console.log(data)
