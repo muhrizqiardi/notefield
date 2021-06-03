@@ -19,6 +19,7 @@ export const AppDataProvider = (props) => {
       currentTag: null,
       currentSort: "DESC",
       sortMenuOpened: false,
+      addTagDialogOpened: false,
       sidebarOpened: true,
     }
   );
@@ -31,7 +32,7 @@ export const AppDataProvider = (props) => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/notes?sort=${sort}?tag=${tag}`);
+      const res = await fetch(`${API_URL}/notes?sort=${sort}${tag ? `&tag=${tag}` : ''}`);
       const data = await res.json();
       setStoredNotes(data);
       console.log(data)
@@ -119,7 +120,7 @@ export const AppDataProvider = (props) => {
   }
 
   useEffect(() => {
-    fetchNotes(appData.currentSort);
+    fetchNotes({sort: appData.currentSort});
   }, []);
 
   return (

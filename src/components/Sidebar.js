@@ -50,7 +50,7 @@ function Sidebar() {
                         <>
                             Tag: {appData.currentTag}
                             <div className="close-tag" onClick={handleCloseTag} style={{cursor: 'pointer'}}>
-                                <i className='bx bxs-x-circle' />
+                                <i className='bx bxs-x-circle' style={{marginLeft: 10}}/>
                             </div>
                         </>
                         :
@@ -75,7 +75,7 @@ function Sidebar() {
                                             content={`${note.content.substring(0, 200)}${note.content.length > 200 ? "..." : ""}`}
                                         />)
                                     :
-                                    [...storedNotes].filter(note => note.title.toLowerCase().includes(searchKeywords.toLowerCase()) || note.content.toLowerCase().includes(searchKeywords.toLowerCase())).map((note) =>
+                                    [...storedNotes].filter(note => note.title.toLowerCase().includes(searchKeywords.toLowerCase()) || note.tags.includes(searchKeywords.toLowerCase()) || note.content.toLowerCase().includes(searchKeywords.toLowerCase())).map((note) =>
                                         <Note
                                             id={note['_id']}
                                             title={note.title}

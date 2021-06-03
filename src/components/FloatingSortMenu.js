@@ -13,7 +13,7 @@ export default function FloatingSortMenu(props) {
       appDataCopy.sortMenuOpened = false;
       return appDataCopy;
     })
-    fetchNotes(sort)
+    fetchNotes({sort})
   }
   return (
     <div
@@ -40,7 +40,9 @@ export default function FloatingSortMenu(props) {
           display:"flex",
           flexDirection: "column",
           justifyContent: "flex-start",
-          alignItems: "flex-start"
+          alignItems: "flex-start",
+          animation: "slidein 0.5s"
+
         }}>
           <h4>Sort: </h4>
           <div 

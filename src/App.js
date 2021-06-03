@@ -12,6 +12,7 @@ import Workplace from './components/Workplace';
 // Import style.scss (already converted to CSS using node-sass)
 import './style/style.scss';
 import FloatingSortMenu from './components/FloatingSortMenu';
+import AddTagDialog from './components/AddTagDialog';
 
 // App component
 function App() {

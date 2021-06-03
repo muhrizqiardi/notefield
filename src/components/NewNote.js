@@ -14,18 +14,16 @@ function NewNote(props) {
 
         // Add a note on the back-end
         let addedNote = await addNote({
-            "title": `New note ${storedNotes.length}`,
-            "tags": [
-                "placeholder"
-            ],
-            "content": "Placeholder",
+            "title": ``,
+            "tags": [],
+            "content": "Enter a note here...",
             "date": new Date().getTime(),
             "author": "Muhammad Rizqi Ardiansyah"
         });
         addedNote = JSON.parse(addedNote);
 
         // Fetch note from back-end
-        fetchNotes();
+        fetchNotes({sort: appData.currentSort});
 
         // Open the new note on the front-end
         setAppData(appData => {

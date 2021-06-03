@@ -14,6 +14,7 @@ import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.bubble.css';
 import AppDataContext from "../context/AppContext";
 import ContentEditable from "react-contenteditable";
+import AddTagDialog from "./AddTagDialog";
 
 function Workplace(props) {
     const { appData, setAppData, storedNotes, setStoredNotes, addNote, editNote, deleteNote, isMobile, loading } = useContext(AppDataContext);
@@ -26,7 +27,16 @@ function Workplace(props) {
         window.addEventListener("resize", () => { setWindowHeight(window.innerHeight); setWindowWidth(window.innerWidth) });
     });
 
-    // Handler to save a note (whether automatically or manually through save button)
+    const openDialog = () => {
+        setAppData(appData => {
+            const appDataCopy = { ...appData };
+            appDataCopy.addTagDialogOpened = true;
+            return appDataCopy;
+        })
+    }
+
+
+    // Handler to save a note (whether automatically [WIP] or manually through save button)
     const handleSaveNote = () => {
         let storedNotesCopy = [...storedNotes];
         // Save content
@@ -61,6 +71,7 @@ function Workplace(props) {
     if (appData.currentNote !== null) {
         return (
             <div className="workplace" style={{ width: (isMobile ? windowWidth : (appData.sidebarOpened ? windowWidth - (windowWidth * 0.3) : windowWidth)), height: windowHeight - 40 }}>
+                {appData.addTagDialogOpened && appData.currentNote ? <AddTagDialog titleState={titleState} contentState={contentState} /> : <></>}
                 <div className="editor-toolbar">
                     <div className="toolbar-button" onClick={handleSaveNote}>
                         <i className="bx bx-save" />
@@ -71,22 +82,29 @@ function Workplace(props) {
                 </div>
                 <div className="editor">
                     <div className="tags">
-                        <Tag>+</Tag>
-                        {storedNotes.find(note => note["_id"] === appData.currentNote).tags && storedNotes.find(note => note["_id"] === appData.currentNote).tags.map((tag) => {
+                        <div className="tag new" onClick={openDialog}>
+                            +
+                        </div>
+                        {storedNotes.find(note => note["_id"] === appData.currentNote).tags.length > 0 ? storedNotes.find(note => note["_id"] === appData.currentNote).tags.map((tag) => {
                             return (
-                                <Tag>
+                                <Tag titleState={titleState} contentState={contentState} >
                                     {tag}
                                 </Tag>
                             )
-                        })}
+                        })
+                            :
+                            <div style={{marginLeft: 10, fontSize: 10, height: "100%"}}>
+                            Click "+" to add a new tag
+                            </div>
+                        }
                     </div>
-                    <input type="text" id="editor-title" onChange={(e) => setTitleState(e.target.value)} value={titleState} />
+                    <input placeholder="Enter a title here..." type="text" id="editor-title" onChange={(e) => setTitleState(e.target.value)} value={titleState} />
                     {/* <ContentEditable
                         html={titleState}
                         tagName="h1"
                         onChange={(e) => setTitleState(e.target.value)}
                     /> */}
-                    <p id="editor-info">Edited by {storedNotes.find(note => note["_id"] === appData.currentNote).author} at {new Date(storedNotes.find(note => note["_id"] === appData.currentNote).date).toLocaleString()}</p>
+                    <p id="editor-info">Edited by {storedNotes.find(note => note["_id"] === appData.currentNote).author} at {new Date(storedNotes.find(note => note["_id"] === appData.currentNote).updatedAt).toLocaleString()}</p>
                     <ReactQuill
                         theme="bubble"
                         id="editor-content"

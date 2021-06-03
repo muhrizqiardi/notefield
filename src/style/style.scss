@@ -21,3 +21,12 @@ body {
     background-color: white;
 
 }
+
+@keyframes slidein {
+    from {
+        transform: translateY(-120%);
+    }
+    to {
+        transform: translateY(0%);
+    }
+}

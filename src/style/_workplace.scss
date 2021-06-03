@@ -65,20 +65,44 @@
     overflow-y: scroll;
     .tags {
       display: flex;
+      align-items: center;
       margin: 10px 0;
       max-width: 100%;
       flex-wrap: wrap;
       .tag {
+        height: 30px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         cursor: pointer;
         color: white;
         font-size: 12px;
         background-color: #535960;
         padding: 5px;
-        border-radius: 8px;
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 8px;
         margin-left: 5px;
         margin-bottom: 5px;
         &:hover {
           background-color: darken(#535960, 30%);
+        }
+        &.new {
+          border-radius: 8px;
+        }
+      }
+      .tag-delete {
+        height: 30px;
+        cursor: pointer;
+        background-color: #535960;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 5px;
+        border-bottom-right-radius: 8px;
+        border-top-right-radius: 8px;
+        &:hover {
+          background-color: darkred;
         }
       }
     }
@@ -103,5 +127,4 @@
     }
   }
   transition: width 0.2s;
-
 }
